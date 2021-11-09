@@ -1,5 +1,4 @@
-
-
+library(vignette)
 library(tidyverse)
 library(drat)
 library(hurricaneexposuredata)
@@ -21,6 +20,10 @@ map_counties(storm = "Floyd-1999", metric = "rainfall") +
     ggtitle("Floyd-1999") +
     theme(plot.title = element_text(hjust = 0.5))
 
+
+map_counties(storm = "Ivan-2004", metric = "rainfall") +
+    ggtitle("Ivan-2004") +
+    theme(plot.title = element_text(hjust = 0.5))
 
 
 map_rain_exposure(storm ="Allison-2001", 
