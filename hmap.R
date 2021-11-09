@@ -1,9 +1,9 @@
-
-
+library(vignette)
 library(tidyverse)
 library(drat)
 library(hurricaneexposuredata)
 library(hurricaneexposure)
+library(dplyr)
 
 addRepo("geanders")
 
@@ -22,6 +22,10 @@ map_counties(storm = "Floyd-1999", metric = "rainfall") +
     theme(plot.title = element_text(hjust = 0.5))
 
 
+map_counties(storm = "Ivan-2004", metric = "rainfall") +
+    ggtitle("Ivan-2004") +
+    theme(plot.title = element_text(hjust = 0.5))
+
 
 map_rain_exposure(storm ="Allison-2001", 
                   rain_limit = 175, 
@@ -31,12 +35,20 @@ map_rain_exposure(storm ="Allison-2001",
     theme(plot.title = element_text(hjust = 0.5))
 
 
-
+#map_rain_exposure(storm ="Ivan-2004", 
+                  #rain_limit = 175, 
+                  #dist_limit = 500, 
+                  #days_included =-5:3) +
+    #ggtitle("Ivan-2004") +
+    #theme(plot.title = element_text(hjust = 0.5))
 
 
 
 
 ###############################################
+
+#map_counties(storm = "Ivan-2004", metric= "rainfall", days_included = -1:0) +
+    #ggtitle("Rain Ivan")
 
 
 map_counties(storm = "Allison-2001", metric= "rainfall", days_included = -1:0) +
@@ -64,6 +76,10 @@ map_counties(storm = "Sandy-2012", metric = "distance")
 map_distance_exposure(storm = "Sandy-2012", dist_limit = 75)
 
 
+#map_counties(storm = "Ivan-2004", metric = "distance")
+
+#map_distance_exposure(storm = "Ivan-2004", dist_limit = 75)
+
 
 map_rain_exposure(storm ="Allison-2001", 
                   rain_limit = 175, 
@@ -77,6 +93,10 @@ library(weathermetrics)
 map_wind_exposure(storm = "Katrina-2005",
     wind_limit = convert_wind_speed(34, "knots","mps"))
 
+#map_wind_exposure(storm = "Ivan-2004",
+    #wind_limit = convert_wind_speed(34, "knots","mps"))
+
+
 
 map_event_exposure(storm = "Floyd-1999", event_type = "flood")
 
@@ -87,7 +107,7 @@ map_tracks(storms = "Floyd-1999")
 
 
 
-map_tracks(storms = c("Andrew-1992", "Katrina-2005", "Rita-2005"), 
+map_tracks(storms = c("Andrew-1992", "Katrina-2005", "Rita-2005","Ivan-2004"), 
                  alpha = 0.5,
                  plot_points = TRUE,
                  color = "blue")
@@ -110,4 +130,15 @@ map_tracks(storms = "Floyd-1999",
     plot_points =TRUE,
     color ="darkgray"
 )
+
+
+#Ivan_map <- map_event_exposure(storm = "Ivan-2004", event_type = "flood")
+
+#map_tracks(storms = "Ivan-2004",
+           #plot_object =Ivan_map,
+           #plot_points =TRUE,
+           #color ="darkgray"
+#)
+
+
 
