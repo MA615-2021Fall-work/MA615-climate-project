@@ -78,6 +78,7 @@ map_counties(storm = "Allison-2001", metric = "rainfall", days_included = -5:3) 
 
 map_counties(storm = "Katrina-2005", metric = "wind")
 
+map_counties(storm = "Ike-2008", metric = "wind")
 
 map_counties("Katrina-2005", metric = "wind", wind_var = "sust_dur")
 
