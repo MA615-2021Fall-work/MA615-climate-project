@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 
 library(tidyverse)
@@ -69,7 +68,8 @@ mapps$expos
 map_counties(storm = "Allison-2001", metric= "rainfall", days_included = -1:0) +
     ggtitle("Rain Allison")
 
-
+map_counties(storm = "Ike-2008", metric= "rainfall", days_included = -1:0) +
+    ggtitle("Rain Ike")
 
 map_counties(storm = "Allison-2001", metric = "rainfall", days_included = -5:3) +
     ggtitle("rain Allison 2001")
@@ -143,7 +143,7 @@ map_tracks(storms = "Floyd-1999",
     color ="darkgray"
 )
 
-=======
+
 
 
 library(tidyverse)
@@ -283,4 +283,3 @@ map_tracks(storms = "Floyd-1999",
     color ="darkgray"
 )
 
->>>>>>> c5721c0bb04bc62cd88b2a39abf9454012b8361a
