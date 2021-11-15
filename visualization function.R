@@ -74,3 +74,4 @@ map_tracks(storms = "Ike-2008",
 
 
 
+map_counties(storm = "Ike-2008", metric = "wind")
