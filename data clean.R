@@ -30,7 +30,7 @@ CLLT2_IKE <- data.frame(hurri1[7]) # only have 48obs from 9/11-9/13 6:00 am ever
 RLOT2_IKE <- data.frame(hurri1[8]) # only have 55obs from 9/11-9/13 6:00 am every hour
 
 
-
+# avaiable data from exposure package:
 IKE_rain <- subset(rain, storm_id == "Ike-2008")
 IKE_hurr_tracks <- subset(hurr_tracks,storm_id == "Ike-2008")
 IKE_landfall_county <- subset(county_centers, fips == 48167)

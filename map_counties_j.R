@@ -1,5 +1,4 @@
 
-
 map_counties_j<-function (storm="Bonnie-2010", metric = "distance", wind_var = "vmax_sust", 
                           days_included = c(-2, -1, 0, 1), add_track = TRUE, wind_source = "modeled") 
 {
