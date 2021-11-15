@@ -1,3 +1,9 @@
+library(tidyverse)
+library(drat)
+library(hurricaneexposuredata)
+library(hurricaneexposure)
+library(weathermetrics)
+
 GRRT2<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=eptt2h2008.txt.gz&dir=data/historical/stdmet/", sep = "")
 T_42043<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=42043h2008.txt.gz&dir=data/historical/stdmet/", sep = "")
 GNJT2<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=gnjt2h2008.txt.gz&dir=data/historical/stdmet/", sep = "")
@@ -20,7 +26,9 @@ for (i in 1:8) {
 
 
 
-GRRT2_IKE <- data.frame(hurri1[1]) # total 1107obs and collected every 6 minutes
+GRRT2_IKE <- data.frame(hurri1[1]) %>%
+  unite("date", X.YY:DD, sep = "-", na.rm = TRUE, remove = TRUE) %>%
+  unite("time", hh:mm, sep = ":", na.rm = TRUE, remove = TRUE) # total 1107obs and collected every 6 minutes
 T_42043_IKE <- data.frame(hurri1[2]) # only have 72obs from 9/11-9/12 every half an hour
 GNJT2_IKE <- data.frame(hurri1[3]) # only have 489obs from 9/11-9/13 3:30 am every 6 minutes
 T_42035_IKE <- data.frame(hurri1[4]) # only have 119obs from 9/11-9/15 every hour
@@ -30,7 +38,7 @@ CLLT2_IKE <- data.frame(hurri1[7]) # only have 48obs from 9/11-9/13 6:00 am ever
 RLOT2_IKE <- data.frame(hurri1[8]) # only have 55obs from 9/11-9/13 6:00 am every hour
 
 
-
+# avaiable data from exposure package:
 IKE_rain <- subset(rain, storm_id == "Ike-2008")
 IKE_hurr_tracks <- subset(hurr_tracks,storm_id == "Ike-2008")
 IKE_landfall_county <- subset(county_centers, fips == 48167)
@@ -38,7 +46,5 @@ IKE_closest_dist <- subset(closest_dist, storm_id == "Ike-2008")
 IKE_storm_winds <- subset(storm_winds, storm_id == "Ike-2008")
 IKE_storm_events <- data.frame(storm_events$`Ike-2008`)
 IKE_ext_tracks_wind <- subset(ext_tracks_wind, storm_id == "Ike-2008")
-
-
 
 
