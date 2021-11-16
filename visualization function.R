@@ -3,7 +3,10 @@ library(drat)
 library(hurricaneexposuredata)
 library(hurricaneexposure)
 library(weathermetrics)
+library(gganimate)
 
+
+source("data clean.R")
 hmapper <- function(hurr){
   
   rmap = map_counties(storm = hurr, metric = "rainfall") +
@@ -75,5 +78,41 @@ map_tracks(storms = "Ike-2008",
 
 
 map_counties(storm = "Ike-2008", metric = "wind")
+
+clean_buoy_list <- list(GRRT2_IKE_clean, T_42043_IKE_clean,GNJT2_IKE_clean,T_42035_IKE_clean,EPTT2_IKE_clean,MGPT2_IKE_clean,CLLT2_IKE_clean,RLOT2_IKE_clean)
+
+wind_speed_tsp <- function(list){
+  ggplot() +
+    geom_line(data = data.frame(list[1]), aes(datetime, as.numeric(WSPD)),color = "brown1", alpha = 0.3) +
+    geom_line(data = data.frame(list[2]), aes(datetime, as.numeric(WSPD)),color="aquamarine2", alpha = 0.4)+
+    geom_line(data = data.frame(list[3]), aes(datetime, as.numeric(WSPD)),color="deeppink",alpha = 0.5)+
+    geom_line(data = data.frame(list[4]), aes(datetime, as.numeric(WSPD)),color="darkorange",alpha = 0.6)+
+    geom_line(data = data.frame(list[5]), aes(datetime, as.numeric(WSPD)),color="blue",alpha = 0.7)+
+    geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(WSPD)),color="blueviolet",alpha = 0.8)+
+    geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(WSPD)),color="brown",alpha = 0.9)+
+    geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(WSPD)),color="chartreuse",alpha = 1)+
+    ylab("Wind speed(m/s)")+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    ggtitle("Wind speed time series plot for Ike-2008 at different buoy")
+}
+
+
+gust_wind_speed_tsp <- function(list){
+  ggplot() +
+    geom_line(data = data.frame(list[1]), aes(datetime, as.numeric(GST)), color = "brown1",alpha = 0.3) +
+    geom_line(data = data.frame(list[2]), aes(datetime, as.numeric(GST)),color="aquamarine2", alpha = 0.4)+
+    geom_line(data = data.frame(list[3]), aes(datetime, as.numeric(GST)),color="deeppink",alpha = 0.5)+
+    geom_line(data = data.frame(list[4]), aes(datetime, as.numeric(GST)),color="darkorange",alpha = 0.6)+
+    geom_line(data = data.frame(list[5]), aes(datetime, as.numeric(GST)),color="blue",alpha = 0.7)+
+    geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(GST)),color="blueviolet",alpha = 0.8)+
+    geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(GST)),color="brown",alpha = 0.9)+
+    geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(GST)),color="chartreuse",alpha = 1)+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    ylab("Gust wind speed(m/s)") +
+    ggtitle("Gust wind speed time series plot for Ike-2008 at different buoy")
+  
+}
+
+
 
 
