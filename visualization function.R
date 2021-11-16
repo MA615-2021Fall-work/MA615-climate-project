@@ -8,6 +8,8 @@ library(ggplot2)
 
 
 source("data clean.R")
+source("map_counties_j.R")
+
 hmapper <- function(hurr){
   
   rmap = map_counties(storm = hurr, metric = "rainfall") +
