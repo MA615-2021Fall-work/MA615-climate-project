@@ -3,7 +3,6 @@ library(drat)
 library(hurricaneexposuredata)
 library(hurricaneexposure)
 library(weathermetrics)
-library(gganimate)
 library(ggplot2)
 
 
