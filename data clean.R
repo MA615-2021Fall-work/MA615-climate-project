@@ -42,12 +42,22 @@ RLOT2_IKE <- data.frame(hurri1[8]) # only have 55obs from 9/11-9/13 6:00 am ever
 # avaiable data from exposure package:
 IKE_rain <- subset(rain, storm_id == "Ike-2008")
 IKE_hurr_tracks <- subset(hurr_tracks,storm_id == "Ike-2008")
-IKE_landfall_county <- subset(county_centers, fips == 48167)
+#IKE_landfall_county <- subset(county_centers, fips == 48167)
 IKE_closest_dist <- subset(closest_dist, storm_id == "Ike-2008")
 IKE_storm_winds <- subset(storm_winds, storm_id == "Ike-2008")
 IKE_storm_events <- data.frame(storm_events$`Ike-2008`)
 IKE_ext_tracks_wind <- subset(ext_tracks_wind, storm_id == "Ike-2008")
 
+# extract dataset from exposure package for variogram:
+
+Ike_wind_vgm_df <- left_join(IKE_storm_winds, county_centers, by = "fips")
+Ike_rain_vgm_df <- left_join(IKE_rain, county_centers, by = "fips")
+
+head(Ike_wind_vgm_df)
+head(Ike_rain_vgm_df)
+
+
+# clean extracted data from buoy for time series:
 GRRT2_IKE_clean <- subset(GRRT2_IKE, WSPD != "99.0" & WSPD != "0.0" & WDIR != "999" & GST != "99.0" & ATMP != "999.0",select = c(date,time,WSPD,WDIR,GST,ATMP))
 GRRT2_IKE_clean$datetime <- as.POSIXct(paste(GRRT2_IKE_clean$date, GRRT2_IKE_clean$time), format = "%Y-%m-%d %H:%M",tz="UTC")
 
