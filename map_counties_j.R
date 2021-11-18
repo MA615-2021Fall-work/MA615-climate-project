@@ -1,5 +1,5 @@
 
-map_counties_j<-function (storm="Bonnie-2010", metric = "distance", wind_var = "vmax_sust", 
+map_counties_j<-function (storm="Ike-2008", metric = "distance", wind_var = "vmax_sust", 
                           days_included = c(-2, -1, 0, 1), add_track = TRUE, wind_source = "modeled") 
 {
   if (metric == "distance") {
@@ -34,7 +34,7 @@ hurr_chorop<-function (map_data, metric = "wind", wind_var = "vmax_sust",
                        wind_source = "modeled") 
 {
   if (metric == "rainfall") {
-    breaks <- seq(0, 200, by = 25)
+    breaks <- seq(0, 250, by = 25)
     palette_name <- "Blues"
     exposure_legend <- "Rainfall (mm)"
   }
@@ -48,7 +48,7 @@ hurr_chorop<-function (map_data, metric = "wind", wind_var = "vmax_sust",
     if (wind_var %in% c("vmax_gust", "vmax_sust")) {
       exposure_legend <- "Wind speed (m / s)"
       if (wind_source == "modeled") {
-        breaks <- seq(0,16,3)
+        breaks <- seq(0,48,6)
         exposure_legend <- "Wind speed (m / s)"
       }
       else if (wind_source == "ext_tracks") {
@@ -61,7 +61,7 @@ hurr_chorop<-function (map_data, metric = "wind", wind_var = "vmax_sust",
       }
     }
     else {
-      breaks <- seq(0, 600, by = 60)
+      breaks <- seq(0, 900, by = 60)
       exposure_legend <- "Wind duration\n(minutes)"
     }
   }
