@@ -9,49 +9,39 @@ library(ggplot2)
 source("data clean.R")
 source("map_counties_j.R")
 
+Ike_track <- map_tracks(storms = "Ike-2008",
+                        plot_points =TRUE,
+                        color ="darkgray"
+)+ggtitle("The track for Ike-2008")
 
-get_bundle <- function() {
+#get_bundle <- function(rainfall,wind_speed,wind_duration,exposed_distance) {
   #rainfall
-  map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
+ rainfall <- map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
     ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with the tract")
   
   #wind speed(m/s)
-  map_counties_j(storm = "Ike-2008", metric = "wind")+
+  wind_speed <- map_counties_j(storm = "Ike-2008", metric = "wind")+
     ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with the tract")
   
   #wind duration(minutes)
-  map_counties("Ike-2008", metric = "wind", wind_var = "sust_dur")+
+  wind_duration <- map_counties("Ike-2008", metric = "wind", wind_var = "sust_dur")+
     ggtitle("Wind duration(minutes) map for Hurricane Ike-2008 with the tract")
   
   #exposed distance
-  map_counties_j(storm = "Ike-2008", metric = "distance")+
+  exposed_distance <- map_counties_j(storm = "Ike-2008", metric = "distance")+
     ggtitle("Exposed distance(km) for Hurricane Ike-2008 with the tract")
-  
-  
-}
-
-map_counties_j(storm = "Ike-2008", metric = "wind")+
-  ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with the tract")
 
 
 
 
 
 #flood event
-map_event_exposure(storm = "Ike-2008", event_type = "flood")
+flood_event <- map_event_exposure(storm = "Ike-2008", event_type = "flood")+
+  ggtitle("Floods events during Ike-2008")
 
 #tornado event
-map_event_exposure(storm = "Ike-2008", event_type = "tornado")
-
-#flood event + hurr track
-Ike_map <- map_event_exposure(storm = "Ike-2008", event_type = "flood")
-
-
-map_tracks(storms = "Ike-2008",
-           plot_object =Ike_map,
-           plot_points =TRUE,
-           color ="darkgray"
-)
+tornade_event <- map_event_exposure(storm = "Ike-2008", event_type = "tornado")+
+  ggtitle("Tonarto events during Ike-2008")
 
 
 
@@ -67,7 +57,7 @@ wind_speed_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(WSPD),color="MGPT2"),alpha = 0.8)+
     geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(WSPD),color="CLLT2"),alpha = 0.9)+
     geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(WSPD),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Wind speed time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Wind speed(m/s)",
@@ -87,7 +77,7 @@ gust_wind_speed_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(GST),color="MGPT2"),alpha = 0.8)+
     geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(GST),color="CLLT2"),alpha = 0.9)+
     geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(GST),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Gust wind speed time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Gust wind speed(m/s)",
@@ -97,6 +87,47 @@ gust_wind_speed_tsp <- function(list){
 
 
 
-wind_speed_tsp(get_result())
-gust_wind_speed_tsp(get_result())
+atmp_tsp <- function(list){
+  colors_atmp <- c("GRRT2" = "brown1", "42043" = "aquamarine2", "42035" = "darkorange", "EPTT2" = "blue", "MGPT2" =  "blueviolet", "CLLT2" = "brown")
+  ggplot() +
+    geom_line(data = data.frame(list[1]), aes(datetime, as.numeric(ATMP),color = "GRRT2"), alpha = 0.3) +
+    geom_line(data = data.frame(list[2]), aes(datetime, as.numeric(ATMP),color="42043"), alpha = 0.4)+
+    #geom_line(data = data.frame(list[3]), aes(datetime, as.numeric(ATMP),color="GNJT2"),alpha = 0.5)+
+    geom_line(data = data.frame(list[4]), aes(datetime, as.numeric(ATMP),color="42035"),alpha = 0.6)+
+    geom_line(data = data.frame(list[5]), aes(datetime, as.numeric(ATMP),color="EPTT2"),alpha = 0.7)+
+    geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(ATMP),color="MGPT2"),alpha = 0.8)+
+    geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(ATMP),color="CLLT2"),alpha = 0.9)+
+    #geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(ATMP),color="RLOT2"),alpha = 1)+
+    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    ggtitle("Air temperature time series plot for Ike-2008 at different buoy")+
+    labs(x = "Date and time",
+         y = "Air temperature(C)",
+         color = "Buoy station") +
+    scale_color_manual(values = colors_atmp)
+}
+
+
+press_tsp <- function(list){
+  color_press <- c("GRRT2" = "brown1", "42043" = "aquamarine2", "GNJT2" = "deeppink", "EPTT2" = "blue", "MGPT2" =  "blueviolet")
+  ggplot() +
+    geom_line(data = data.frame(list[1]), aes(datetime, as.numeric(PRES),color = "GRRT2"), alpha = 0.3) +
+    geom_line(data = data.frame(list[2]), aes(datetime, as.numeric(PRES),color="42043"), alpha = 0.4)+
+    geom_line(data = data.frame(list[3]), aes(datetime, as.numeric(PRES),color="GNJT2"),alpha = 0.5)+
+    #geom_line(data = data.frame(list[4]), aes(datetime, as.numeric(PRES),color="42035"),alpha = 0.6)+
+    geom_line(data = data.frame(list[5]), aes(datetime, as.numeric(PRES),color="EPTT2"),alpha = 0.7)+
+    geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(PRES),color="MGPT2"),alpha = 0.8)+
+    #geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(PRES),color="CLLT2"),alpha = 0.9)+
+    #geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(PRES),color="RLOT2"),alpha = 1)+
+    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    ggtitle("Sea level pressure time series plot for Ike-2008 at different buoy")+
+    labs(x = "Date and time",
+         y = "Sea level pressure (hPa)",
+         color = "Buoy station") +
+    scale_color_manual(values = color_press)
+}
+
+press_tsp(get_result())
+
+
+
 

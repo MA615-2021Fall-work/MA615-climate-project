@@ -6,17 +6,52 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(drat)
+library(hurricaneexposuredata)
+library(hurricaneexposure)
+library(weathermetrics)
+library(scales)
+library(sp)
+library(gstat)
 ```
+
+```{r, warning=FALSE}
+source("map_counties_j.R")
+source("data clean.R")
+source("visualization function.R")
+```
+
+
 
 
 ## Movement Track
 Hurricane Ike was a powerful tropical hurricane that swept through portions of the Greater Antilles and Northern America in September 2008. The origins of Hurricane Ike can be traced back to a well-defined tropical wave first identified by the National Hurricane Center (NHC) near the western coast of Africa on August 28. After a period of development, Ike made its first landfall on Inagua in the Bahamas at 13:00 UTC on September 7 with winds of 125 mph (201 km/h). After one day, Ike made its second landfall on Cuba with a Category 4 intensity. Then at 0700 UTC on September 13, Ike made its third landfall on Galveston Island in Texas, with a Category 2 intensity and a maximum wind speed of 110 mph (180 km/h). Then Ike moved northward after its landfall on Texas and weakened to a tropical storm status.
 \
+```{r, fig.width=10}
+Ike_track
+```
+
+
+```{r,fig.width=10}
+rainfall
+```
+
+```{r,fig.width=10}
+wind_speed
+wind_duration
+```
+
 
 ## Loss and Damage:
-Ike is the seventh-costliest hurricane in United States history untile now, it caused over $38 billion damage and 214 casualties. And due to the intensity of the storm, Texas closed many of its chemical plants and oil refineries which caused many indirect economy losses in the mean time.
+Ike is the seventh-costliest hurricane in United States history until now, it caused over $38 billion damage and 214 casualties. And due to the intensity of the storm, Texas closed many of its chemical plants and oil refineries which caused many indirect economy losses in the mean time.
 \
+
+```{r,fig.width=10}
+flood_event
+tornade_event
+```
 
 ## Buoys selected
 Our porject will only focus on the conditions of Ike when it made its landfall in Texas. We selected 8 Buoys from the NOAA database to analyze Ike. All 8 buoys are located near the center of the landfall location, the maximum distance between two buoys is around 60 miles, and the minimum distance is around 25 miles. The selected Buoys IDs are: GRRT2, 42043, GNJT2, 42035, EPTT2, MGPT2, CLLT2, RLOT2.
@@ -28,9 +63,14 @@ Our porject will only focus on the conditions of Ike when it made its landfall i
 |
 |
 |
-```{r}
 
+```{r,fig.width=10}
+wind_speed_tsp(get_result())
+gust_wind_speed_tsp(get_result())
+atmp_tsp(get_result())
+press_tsp(get_result())
 ```
+
 
 
 
@@ -57,7 +97,7 @@ Our porject will only focus on the conditions of Ike when it made its landfall i
 \
 
 ## Tips:
-Based on the data, conclusiion, and previous record, we have the following advice for people who may encounter a hurricane.
+Based on the data, conclusion, and previous record, we have the following advice for people who may encounter a hurricane.
 
 1.Never go outside the protection of your home or shelter before there is confirmation that the storm has passed the area. The eye of the storm could create a temporary and deceptive lull, with high winds still approaching
 

@@ -4,6 +4,8 @@ library(hurricaneexposuredata)
 library(hurricaneexposure)
 library(weathermetrics)
 library(scales)
+library(sp)
+library(gstat)
 
 GRRT2<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=eptt2h2008.txt.gz&dir=data/historical/stdmet/", sep = "")
 T_42043<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=42043h2008.txt.gz&dir=data/historical/stdmet/", sep = "")
@@ -28,7 +30,7 @@ hurri1 <-list(GRRT2,T_42043, GNJT2, T_42035, EPTT2, MGPT2, CLLT2,RLOT2)
 Ike_wind_vgm_df <- left_join(IKE_storm_winds, county_centers, by = "fips")
 Ike_rain_vgm_df <- left_join(IKE_rain, county_centers, by = "fips")
 
-# wrangle our data sets by choosing the data between 9.3 and 9.15, dropping unrecorded value,
+# wrangle our data sets by choosing the data between 9.11 and 9.15, dropping unrecorded value,
 # replacing the data format to a data time column.
 for (i in 1:length(hurri1)) {
   hurri1[[i]]$"buoy" <- rep(c("GRRT2","42043","GNJT2","42035","EPTT2","MGPT2","CLLT2","RLOT2")[i], nrow(hurri1[[i]]))
@@ -37,7 +39,7 @@ for (i in 1:length(hurri1)) {
                         WSPD != "0.0", GST != "99.0")
   hurri1[[i]] <- unite(hurri1[[i]], "date", X.YY:DD, sep = "-", na.rm = TRUE, remove = TRUE)
   hurri1[[i]] <- unite(hurri1[[i]], "time", hh:mm, sep = ":", na.rm = TRUE, remove = TRUE)
-  hurri1[[i]] <- select(hurri1[[i]], date, time, WSPD, GST, ATMP)
+  hurri1[[i]] <- select(hurri1[[i]], date, time, WSPD, GST, ATMP,PRES)
   hurri1[[i]]$datetime <- as.POSIXct(paste(hurri1[[i]]$date, hurri1[[i]]$time),
                                      format = "%Y-%m-%d %H:%M",tz="UTC")
 }
@@ -57,6 +59,4 @@ IKE_ext_tracks_wind <- subset(ext_tracks_wind, storm_id == "Ike-2008")
 get_result <- function() {
   return(hurri1)
 }
-
-
 

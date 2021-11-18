@@ -126,6 +126,8 @@ map_tracks(storms = c("Andrew-1992", "Katrina-2005", "Rita-2005"),
                  color = "blue")
 
 
+
+
 storms_2018 <- hurr_tracks %>% select(storm_id) %>% 
                                 distinct() %>% 
                                mutate(year = str_extract(storm_id, "-[0-9].+")) %>% 
