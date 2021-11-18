@@ -57,12 +57,12 @@ wind_speed_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(WSPD),color="MGPT2"),alpha = 0.8)+
     geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(WSPD),color="CLLT2"),alpha = 0.9)+
     geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(WSPD),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Wind speed time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Wind speed(m/s)",
          color = "Buoy station") +
-    scale_color_manual(values = colors)
+    scale_color_manual(values = colors)+theme(axis.text.x = element_text(angle = 90))
 }
 
 
@@ -77,12 +77,12 @@ gust_wind_speed_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(GST),color="MGPT2"),alpha = 0.8)+
     geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(GST),color="CLLT2"),alpha = 0.9)+
     geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(GST),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Gust wind speed time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Gust wind speed(m/s)",
          color = "Buoy station") +
-    scale_color_manual(values = colors)
+    scale_color_manual(values = colors)+theme(axis.text.x = element_text(angle = 90))
 }
 
 
@@ -98,12 +98,12 @@ atmp_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(ATMP),color="MGPT2"),alpha = 0.8)+
     geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(ATMP),color="CLLT2"),alpha = 0.9)+
     #geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(ATMP),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Air temperature time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Air temperature(C)",
          color = "Buoy station") +
-    scale_color_manual(values = colors_atmp)
+    scale_color_manual(values = colors_atmp)+theme(axis.text.x = element_text(angle = 90))
 }
 
 
@@ -118,15 +118,14 @@ press_tsp <- function(list){
     geom_line(data = data.frame(list[6]), aes(datetime, as.numeric(PRES),color="MGPT2"),alpha = 0.8)+
     #geom_line(data = data.frame(list[7]), aes(datetime, as.numeric(PRES),color="CLLT2"),alpha = 0.9)+
     #geom_line(data = data.frame(list[8]), aes(datetime, as.numeric(PRES),color="RLOT2"),alpha = 1)+
-    scale_x_datetime(date_breaks = "18 hours", labels = date_format("%Y-%m-%d %H:%M"))+
+    scale_x_datetime(date_breaks = "12 hours", labels = date_format("%Y-%m-%d %H:%M"))+
     ggtitle("Sea level pressure time series plot for Ike-2008 at different buoy")+
     labs(x = "Date and time",
          y = "Sea level pressure (hPa)",
          color = "Buoy station") +
-    scale_color_manual(values = color_press)
+    scale_color_manual(values = color_press)+theme(axis.text.x = element_text(angle = 90))
 }
 
-press_tsp(get_result())
 
 
 

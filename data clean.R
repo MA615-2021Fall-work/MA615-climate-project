@@ -27,9 +27,6 @@ RLOT2<- read.csv("https://www.ndbc.noaa.gov/view_text_file.php?filename=rlot2h20
 # put them into a list
 hurri1 <-list(GRRT2,T_42043, GNJT2, T_42035, EPTT2, MGPT2, CLLT2,RLOT2)
 
-Ike_wind_vgm_df <- left_join(IKE_storm_winds, county_centers, by = "fips")
-Ike_rain_vgm_df <- left_join(IKE_rain, county_centers, by = "fips")
-
 # wrangle our data sets by choosing the data between 9.11 and 9.15, dropping unrecorded value,
 # replacing the data format to a data time column.
 for (i in 1:length(hurri1)) {
@@ -54,6 +51,8 @@ IKE_storm_winds <- subset(storm_winds, storm_id == "Ike-2008")
 IKE_storm_events <- data.frame(storm_events$`Ike-2008`)
 IKE_ext_tracks_wind <- subset(ext_tracks_wind, storm_id == "Ike-2008")
 
+Ike_wind_vgm_df <- left_join(IKE_storm_winds, county_centers, by = "fips")
+Ike_rain_vgm_df <- left_join(IKE_rain, county_centers, by = "fips")
 
 # function that returns our list of data sets
 get_result <- function() {

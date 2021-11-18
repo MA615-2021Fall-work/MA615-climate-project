@@ -1,0 +1,136 @@
+---
+title: "Hurricane Final Report"
+author: "YuanMing Leng, Biyao Zhang, Chen Xu, Xihao Cao"
+date: "11/16/2021"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+  html_document: default
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+pacman::p_load("tidyverse","ggplot2","dplyr", "maps", "drat","hurricaneexposuredata","hurricaneexposure","weathermetrics","scales","sp","gstat")
+```
+
+```{r}
+source("map_counties_j.R")
+source("data clean.R")
+source("visualization function.R")
+```
+
+
+
+
+## Movement Track
+Hurricane Ike was a powerful tropical hurricane that swept through portions of the Greater Antilles and Northern America in September 2008. The origins of Hurricane Ike can be traced back to a well-defined tropical wave first identified by the National Hurricane Center (NHC) near the western coast of Africa on August 28. After a period of development, Ike made its first landfall on Inagua in the Bahamas at 13:00 UTC on September 7 with winds of 125 mph (201 km/h). After one day, Ike made its second landfall on Cuba with a Category 4 intensity. Then, at 0700 UTC on September 13, Ike made its third landfall on Galveston Island in Texas (N29.4, W-95.01), with a Category 2 intensity and a maximum wind speed of 110 mph (180 km/h). Then Ike moved northward after its landfall on Texas and weakened to a tropical storm status.
+
+```{r, fig.width=10}
+Ike_track
+```
+\
+\
+
+## Loss and Damage:
+Ike is the seventh-costliest hurricane in United States history until now, it caused over $38 billion damage and 214 casualties. And due to the intensity of the storm, Texas closed many of its chemical plants and oil refineries which caused many indirect economy losses in the mean time.
+\
+\
+
+
+## Buoys selected
+Our project will only focus on the conditions of Ike when it made its landfall in Texas. We selected 8 Buoys from the NOAA database to analyze Ike. All 8 buoys are located near the center of the landfall location, the maximum distance between two buoys is around 60 miles, and the minimum distance is around 25 miles. The selected Buoys IDs are: GRRT2(29.302 N 94.896 W), 42043(28.982 N 94.899 W), GNJT2(29.357 N 94.725 W), 42035(29.232 N 94.413 W), EPTT2(29.481 N 94.917 W), MGPT2(29.682 N 94.985 W), CLLT2(29.563 N 95.067 W), RLOT2(29.515 N 94.513 W).
+\
+\
+
+
+## EDA of Buoys data
+Firstly we use the buoys data to get the gust wind speed vs time and wind speed vs time. Notice that the timeline is from 6:00 on 2008-09-11 to 18:00 on 2008-09-15 which contains the time Ike made its landfall(September 13th). Each line represents the wind speed variation at one specific buoy, and there are 8 buoys, thus 8 lines in total. As we can see, the 8 lines share the same overall shape in both graphs, where the wind speeds reaches their maximum around 6:00 on 2008/9/13 which is very close to the landfall time of Ike(7:00 UTC). Meanwhile, we can see that the wind speeds decrease under 10m/s after 6:00 on 2008/9/14, which was also close to the time Ike left the landfall neighborhood. If we compare the information of Ike in the Hurricane Exposure with these graphs, we can see that they share almost the same timeline, which is what we want.
+
+```{r,fig.width=10}
+wind_speed_tsp(get_result())
+gust_wind_speed_tsp(get_result())
+```
+
+\
+\
+Secondly, we have the XXXXX（徐老板）
+```{r, echo=F}
+press_tsp(get_result())
+```
+\
+\
+
+
+
+
+
+## EDA of Hurricane_Package data
+The following four graphs illustrate the data of Ike in the Hurricane package.
+\
+### This graph shows the wind speed variation of Ike along its tract. As we can see that the maximum speed Ike reached in the U.S. is around 45m/s at the landfall area, which is consistent with the peak value of our wind speed graph above. 
+```{r, echo = F}
+#wind speed(m/s)
+wind_speed
+wind_duration
+```
+\
+
+
+### The second graph we have is the map of tornados event that were caused by Ike. Although tornado is another another topic, we can get some useful information from its distribution. Notice that most of the exposed area also encountered higher amount of rainfall, but we could not find a clear relationship between the wind speed of Ike and the tornado events.
+```{r, echo = F}
+# tornado situation
+tornade_event
+```
+\
+
+
+### The third graph here is floodXXXXXX(徐老板)
+```{r}
+#flood event
+flood_event
+```
+\
+
+
+### The forth graph is RainXXXXXXX(徐老板)
+```{r}
+#rainfall
+rainfall
+```
+
+
+## Variogram
+|
+|
+|
+|
+```{r}
+
+```
+
+
+## Conclusion
+1. After plotting the buoys data, we notice that XXXXXXXXXXXX
+
+2. After plotting the hurricane_exposure package data, we XXXXXXXX
+
+3. XXXXXXX
+\
+\
+\
+
+## Tips:
+Based on the data, conclusiion, and previous record, we have the following advice for people who may encounter a hurricane.
+
+1.Never go outside the protection of your home or shelter before there is confirmation that the storm has passed the area. The eye of the storm could create a temporary and deceptive lull, with high winds still approaching
+
+2.Use a portable radio to listen to important storm updates, information and instructions.
+
+3.Stay inside and keep away from all windows, skylights and glass doors. Go to a safe area, such as an interior room, closet or downstairs bathroom.
+\
+\
+
+## Reference:
+1. Buoys data: https://www.ndbc.noaa.gov/measdes.shtml
+
+2. Wikipedia: https://en.wikipedia.org/wiki/Hurricane_Ike#United_States
