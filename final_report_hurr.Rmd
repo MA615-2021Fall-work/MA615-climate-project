@@ -53,8 +53,13 @@ gust_wind_speed_tsp(get_result())
 
 \
 \
-Secondly, we have the XXXXX（徐老板）
-```{r, echo=F}
+Secondly, we use the buoys data to get the sea level pressure vs. time time series plot. Notice that the timeline is from 6:00 on 2008-09-11 to 18:00 on 2008-09-15 which contains the time Ike made its landfall(September 13th at 7:00AM). Each line represents the sea level pressure(hPa) at one specific buoy, and there are 5 buoys recorded the data, thus 5 lines in total.
+
+Sea level pressure – the same metric that we all use to guess if the weather is getting better or worse by seeing if the pressure is rising or falling – is already a common test of strength used in hurricanes and storm systems around the globe.
+Generally, the lower the central pressure, the stronger the storm. The lowest pressure in a hurricane is always found at its center, or in its eye.
+
+We can see from the plot that the sea level pressure recorded by buoy reaches to its lowest level around September 13th at 7:00AM, when Ike landfall. Hurricane Ike was a Category 2 on the Saffir–Simpson hurricane wind scale (SSHWS) but had a pressure of around 950 hPa when it arrived on the Texas coast. This was the third-lowest pressure for a landfalling Category 2 since 1900. Ike caused about $38 billion in damage, according to the National Hurricane Center. In 2009, Ike ranked as the second-costliest hurricane to make landfall in the United States. Since then, more damaging storms have made landfall, but Ike remains as the sixth-most-damaging hurricane. As we can conclude that sea level pressure may be another useful indicator of Hurricane Damage Potential besides wind speed and rainfall. 
+```{r, echo=F, fig.width=10}
 press_tsp(get_result())
 ```
 \
@@ -84,19 +89,15 @@ tornade_event
 \
 
 
-### The third graph here is floodXXXXXX(徐老板)
+### The third figure here is flood event exposed when Ike transits with Ike's track and the fourth figure is the rainfall map when Ike transit in 2008. In addition to high winds, hurricanes threaten coastal areas with their heavy rains. All tropical cyclones can produce widespread torrential rains, which cause massive flooding and trigger landslides and debris flows. Flash flooding, a rapid rise in water levels, can occur quickly due to intense rainfall over a relatively short period of time. As we can see from these two figures, the area has major rainfall and the area where flood events occur are overlap.
 ```{r}
 #flood event
 flood_event
-```
-\
-
-
-### The forth graph is RainXXXXXXX(徐老板)
-```{r}
 #rainfall
 rainfall
 ```
+\
+
 
 
 ## Variogram
@@ -134,3 +135,5 @@ Based on the data, conclusiion, and previous record, we have the following advic
 1. Buoys data: https://www.ndbc.noaa.gov/measdes.shtml
 
 2. Wikipedia: https://en.wikipedia.org/wiki/Hurricane_Ike#United_States
+
+3. Sea level pressure: https://weather.com/storms/hurricane/news/2020-01-29-hurricane-surface-pressure-damage-potential-wind
