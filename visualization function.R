@@ -5,43 +5,57 @@ library(hurricaneexposure)
 library(weathermetrics)
 library(ggplot2)
 
+addRepo("geanders")
 
 source("data clean.R")
 source("map_counties_j.R")
 
-Ike_track <- map_tracks(storms = "Ike-2008",
-                        plot_points =TRUE,
-                        color ="darkgray"
-)+ggtitle("The track for Ike-2008")
 
-#get_bundle <- function(rainfall,wind_speed,wind_duration,exposed_distance) {
-  #rainfall
- rainfall <- map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
-    ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with the tract")
+hmapper <- function(hurr){
   
-  #wind speed(m/s)
-  wind_speed <- map_counties_j(storm = "Ike-2008", metric = "wind")+
-    ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with the tract")
+  trackmap = map_tracks(storms = "Ike-2008",
+                          plot_points =TRUE,
+                          color ="darkgray"
+  )+ggtitle("The track for Ike-2008")
   
-  #wind duration(minutes)
-  wind_duration <- map_counties("Ike-2008", metric = "wind", wind_var = "sust_dur")+
-    ggtitle("Wind duration(minutes) map for Hurricane Ike-2008 with the tract")
   
-  #exposed distance
-  exposed_distance <- map_counties_j(storm = "Ike-2008", metric = "distance")+
-    ggtitle("Exposed distance(km) for Hurricane Ike-2008 with the tract")
+  rmap = map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
+    ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with the tract")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  
+  wmap = map_counties_j(storm = "Ike-2008", metric = "wind")+
+    ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with the tract")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  
+  wdmap <- map_counties("Ike-2008", metric = "wind", wind_var = "sust_dur")+
+    ggtitle("Wind duration(minutes) map for Hurricane Ike-2008 with the tract")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  
+  expos = map_counties_j(storm = "Ike-2008", metric = "distance")+
+    ggtitle("Exposed distance(km) for Hurricane Ike-2008 with the tract")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  
+  flood = map_event_exposure(storm = "Ike-2008", event_type = "flood")+
+    ggtitle("Floods events during Ike-2008")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  
+  tornado  = tornade_event <- map_event_exposure(storm = "Ike-2008", event_type = "tornado")+
+    ggtitle("Tonarto events during Ike-2008")+
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  ml <-  list(trackmap,rmap, wmap, wdmap,expos,flood,tornado)
+  names(ml) <- c("trackmap","rmap","wmap", "wdmp","expos","flood","tornado")
+  
+  return(ml)
+}
 
+mapps_Ike <- hmapper("Ike-2008")
 
-
-
-
-#flood event
-flood_event <- map_event_exposure(storm = "Ike-2008", event_type = "flood")+
-  ggtitle("Floods events during Ike-2008")
-
-#tornado event
-tornade_event <- map_event_exposure(storm = "Ike-2008", event_type = "tornado")+
-  ggtitle("Tonarto events during Ike-2008")
 
 
 
@@ -126,6 +140,8 @@ press_tsp <- function(list){
     scale_color_manual(values = color_press)+theme(axis.text.x = element_text(angle = 90))
 }
 
+
+press_tsp(get_result())
 
 
 
