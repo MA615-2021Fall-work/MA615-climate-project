@@ -11,7 +11,6 @@ addRepo("geanders")
 
 source("data clean.R")
 source("map_counties_j.R")
-source("map_buoy.R")
 
 
 hmapper <- function(hurr){
@@ -25,7 +24,7 @@ hmapper <- function(hurr){
   trackmap = map_tracks(storms = "Ike-2008",
                           plot_points =TRUE,
                           color ="darkgray"
-  )+ggtitle("The track for Ike-2008")+geom_point(aes(x=longi, y = lati), color="darkorange")
+  )+ggtitle("The track for Ike-2008")+theme(plot.title = element_text(hjust = 0.5))
   
   
   rmap = map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
@@ -56,10 +55,10 @@ hmapper <- function(hurr){
     ggtitle("Tonarto events during Ike-2008")+
     theme(plot.title = element_text(hjust = 0.5))
   
-  buoymap <- map_counties_j(storm = "Ike-2008", metric = "rainfall")+
-    ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with buoy stations")+
+  buoymap <- map_counties_j(storm = "Ike-2008", metric = "wind")+
+    ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with buoy stations")+
     theme(plot.title = element_text(hjust = 0.5))+
-    geom_point(aes(x=longi, y = lati, color= buoy),size = 2)+
+    geom_point(aes(x=longi, y = lati, color= buoy),size = 8)+
     #geom_label(label = buoy)+
     coord_cartesian(xlim = c(-97, -92), ylim = c(28,33))
   
@@ -70,8 +69,6 @@ hmapper <- function(hurr){
 }
 
 mapps_Ike <- hmapper("Ike-2008")
-
-
 
 
 

@@ -133,7 +133,7 @@ storms_2018 <- hurr_tracks %>% select(storm_id) %>%
                                mutate(year = str_extract(storm_id, "-[0-9].+")) %>% 
                                filter(year == "-2018")
 
-map_tracks(storms = storms_2018$storm_id)
+map_tracks(storms = "Ike-2008")
 
 
 
