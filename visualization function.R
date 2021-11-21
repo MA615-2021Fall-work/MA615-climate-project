@@ -4,25 +4,33 @@ library(hurricaneexposuredata)
 library(hurricaneexposure)
 library(weathermetrics)
 library(ggplot2)
+library(sf)
+library(ggforce)
 
 addRepo("geanders")
 
 source("data clean.R")
 source("map_counties_j.R")
+source("map_buoy.R")
 
 
 hmapper <- function(hurr){
+
+  location <- data.frame("buoy" = c("GRRT2","42043","GNJT2","42035","EPTT2","MGPT2","CLLT2","RLOT2"), "longi" = c(-94.896,-94.899,-94.725,-94.413,-94.917,-94.985,-95.67,-94.513), "lati" = c(29.302,28.982,29.357,29.232,29.481,29.682,29.563,29.515))
+  
+  lati <- location$lati
+  longi <- location$longi
+  buoy <- location$buoy
   
   trackmap = map_tracks(storms = "Ike-2008",
                           plot_points =TRUE,
                           color ="darkgray"
-  )+ggtitle("The track for Ike-2008")
+  )+ggtitle("The track for Ike-2008")+geom_point(aes(x=longi, y = lati), color="darkorange")
   
   
   rmap = map_counties_j(storm = "Ike-2008", metric= "rainfall", days_included = -2:2) +
     ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with the tract")+
     theme(plot.title = element_text(hjust = 0.5))
-  
   
   wmap = map_counties_j(storm = "Ike-2008", metric = "wind")+
     ggtitle("Wind speed(m/s) map for Hurricane Ike-2008 with the tract")+
@@ -48,8 +56,15 @@ hmapper <- function(hurr){
     ggtitle("Tonarto events during Ike-2008")+
     theme(plot.title = element_text(hjust = 0.5))
   
-  ml <-  list(trackmap,rmap, wmap, wdmap,expos,flood,tornado)
-  names(ml) <- c("trackmap","rmap","wmap", "wdmp","expos","flood","tornado")
+  buoymap <- map_counties_j(storm = "Ike-2008", metric = "rainfall")+
+    ggtitle("Rainfall(mm) map for Hurricane Ike-2008 with buoy stations")+
+    theme(plot.title = element_text(hjust = 0.5))+
+    geom_point(aes(x=longi, y = lati, color= buoy),size = 2)+
+    #geom_label(label = buoy)+
+    coord_cartesian(xlim = c(-97, -92), ylim = c(28,33))
+  
+  ml <-  list(trackmap,rmap, wmap, wdmap,expos,flood,tornado,buoymap)
+  names(ml) <- c("trackmap","rmap","wmap", "wdmp","expos","flood","tornado","buoymap")
   
   return(ml)
 }
@@ -141,7 +156,6 @@ press_tsp <- function(list){
 }
 
 
-press_tsp(get_result())
 
 
 
