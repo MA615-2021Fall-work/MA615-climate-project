@@ -1,16 +1,16 @@
 ---
 title: "Hurricane Final Report"
-author: "YuanMing Leng, Biyao Zhang, Chen Xu, Xihao Cao"
-date: "11/16/2021"
+author: "Yuanming Leng, Biyao Zhang, Chen Xu, Xihao Cao"
+date: "11/20/2021"
 output:
+  html_document: default
   pdf_document: 
     latex_engine: xelatex
-  html_document: default
 ---
 
 ```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-pacman::p_load("tidyverse","ggplot2","dplyr", "maps", "drat","hurricaneexposuredata","hurricaneexposure","weathermetrics","scales","sp","gstat","ggplot2","ggforce")
+pacman::p_load("tidyverse","ggplot2","dplyr", "maps", "drat","hurricaneexposuredata","hurricaneexposure","weathermetrics","scales","sp","gstat","ggplot2","ggforce","tmap")
 ```
 
 ```{r,warning=FALSE}
@@ -18,6 +18,8 @@ source("map_counties_j.R")
 source("data clean.R")
 source("visualization function.R")
 source("buoy_kriging.R")
+source("hurricane_krige.R")
+source("rain_kriging.R")
 ```
 
 
@@ -28,6 +30,7 @@ Hurricane Ike was a powerful tropical hurricane that swept through portions of t
 
 ```{r, fig.width=10}
 mapps_Ike$trackmap
+mapps_Ike$expos
 ```
 \
 \
@@ -114,30 +117,51 @@ mapps_Ike$rmap
 
 ## Using data from hurricane exposure data package: 
 ```{r,fig.width=10}
-
+# Same direction VGM
+plot(v, v_fit_same)
+# Vary direction VGM
+plot(lzn.dir, lzndir.fit, as.table = TRUE)
 ```
 
+
+## Wind speed along track prediction using kriging:
+```{r, fig.width=10,warning=FALSE}
+hurri_predicted
+hurri_map
+```
+
+
+## Rainfall along track:
+```{r,warning=FALSE,fig.width=10}
+# check variogram and covariance
+op <- par(mfrow = c(1, 2))
+h <- seq(0, 50, length = 100)
+plot(vgm_rain,vgm_rain_fit) #plot(v,v_f)
+plot(vv,vv_fit,main="Directional Variogram") #,as.table=TRUE) 
+```
 
 
 
 
 ## Using Buoy's data from NOAA:
-```{r,fig.width=10}
+```{r}
+par(mfrow = c(1,2))
 #buoy vgm
-plot(semivariog, v_fit)
+plot(semivariog, v_fit_buoy, xlim = c(0,0.45),ylim = c(-10,100))
+predict_wspd
 ```
 
 
 ```{r,fig.width=10}
 #predict landfall point wind speed using buoy's data
-predict_wspd
+buoy_kriging_map
 ```
 
 
 ## Conclusion
-1. After compare the wind speed, rainfall graphs made by buoy's data and the hurricane package data, we find that they basically share the same overall shapes, and their key information at the landfall point, ex: maximum wind speed, wind duration, and rainfall amount, are very close. Thus, we can conclude that the buoys we selected are able to describe Ike's overall condition when it made its landfall.
+A.  Although buoys collects sea-based data the hurricane package collects land-based data, after compare their wind speed, rainfall graphs, we find that they basically share the same overall shapes, and their key information at the landfall point, ex: maximum wind speed, wind duration, and rainfall amount, are very close. Thus, we can conclude that the buoys we selected are able to describe Ike's overall condition when it made its landfall. 
 
-2. After plotting the hurricane_exposure package data, we find that the flood and rainfall value basically share the same distribution along the Ike's movement track, which points out that they are highly correlated. However, as for the distribution and value of wind speed and tornado, we cannot notice a 
+B. After plotting the hurricane_exposure package data, we find that the flood and rainfall value basically share the same distribution along the Ike's movement tract, which points out that they are highly correlated. However, as for the distribution and value of wind speed and tornado, we cannot find an noticeable relation between them, which suggests that they are not highly correlated.
 
 3. 
 
@@ -149,12 +173,14 @@ predict_wspd
 
 ## Tips:
 Based on the data, conclusiion, and previous record, we have the following advice for people who may encounter a hurricane.
+Tips for residents:
 
-1.Never go outside the protection of your home or shelter before there is confirmation that the storm has passed the area. The eye of the storm could create a temporary and deceptive lull, with high winds still approaching
+1. Never go outside the protection of your home or shelter before there is confirmation that the storm has passed the area. The eye of the storm could create a temporary and deceptive lull, with high winds still approaching
 
-2.Use a portable radio to listen to important storm updates, information and instructions.
+2. Use a portable radio to listen to important storm updates, information and instructions.
 
-3.Stay inside and keep away from all windows, skylights and glass doors. Go to a safe area, such as an interior room, closet or downstairs bathroom.
+3. Stay inside and keep away from all windows, skylights and glass doors. Go to a safe area, such as an interior room, closet or downstairs bathroom.
+
 \
 \
 

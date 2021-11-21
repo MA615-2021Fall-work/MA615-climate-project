@@ -46,15 +46,14 @@ hurri3 <- merge(location, hurri3, by = "buoy")
 coordinates(hurri3) <- ~ longi + lati
 
 semivariog <- variogram((mean_ws) ~ 1, data=na.omit(hurri3), width =0.04)
-plot(semivariog,plot.number = T)
-v_fit <- fit.variogram(semivariog, vgm("Gau"))
+v_fit_buoy <- fit.variogram(semivariog, vgm("Gau"))
 
 
 pred_grid <- expand.grid(seq(ceiling(max(location$longi)), floor(min(location$longi)), by = -0.01), seq(ceiling(max(location$lati)), floor(min(location$lati)), by = -0.01))
 
 colnames(pred_grid) <- c("longtitude", "latitude")
 coordinates(pred_grid) <-  ~ longtitude + latitude
-krig_buoy<-krige(formula= mean_ws ~ 1, hurri3, pred_grid, model=v_fit)
+krig_buoy<-krige(formula= mean_ws ~ 1, hurri3, pred_grid, model=v_fit_buoy)
 
 
 
@@ -66,4 +65,9 @@ predict_wspd <- krig_buoy %>% as.data.frame %>%
   ggtitle("Predict landfall point wind speed using buoy's data")+
   theme(plot.title = element_text(hjust = 0.5))+
   theme_bw()
+
+
+tmap_mode("view")
+buoy_kriging_map <- tm_shape(krig_bouy) +
+  tm_bubbles(col = "var1.pred", palette = "-RdYlBu", size = .3, alpha = .5)
 
