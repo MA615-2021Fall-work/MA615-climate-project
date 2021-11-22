@@ -172,14 +172,78 @@ B. After plotting the hurricane_exposure package data, we find that the flood an
 \
 
 ## Tips:
-Based on the data, conclusiion, and previous record, we have the following advice for people who may encounter a hurricane.
-Tips for residents:
+## Based on the data, conclusion, and previous record, we have the following advice for people who may encounter a hurricane using Ike-2008 as an example:
 
-1. Never go outside the protection of your home or shelter before there is confirmation that the storm has passed the area. The eye of the storm could create a temporary and deceptive lull, with high winds still approaching
+Evacuation counties suggestion(where wind speed > 30 m/s, wind duration > 420 minutes and total rainfall > 175mm):
+County name: fips code
+Mandatory evacuation zone suggestion:
+Galveston: 48167
+Chambers: 48071
+Brazoria: 48039
+Matagorda: 48321
 
-2. Use a portable radio to listen to important storm updates, information and instructions.
+Evacuate warning zones suggestion:
+Jefferson: 48245
+Orange: 48361
+Newton: 48351
+Hardin: 48199
+Liberty: 48291
+Harris: 48201
+Fort Bend: 48157
+Wharton: 48481
+Walker: 48473
+Austin: 48015
+San Jacinto: 48407
+Tyler: 48457
 
-3. Stay inside and keep away from all windows, skylights and glass doors. Go to a safe area, such as an interior room, closet or downstairs bathroom.
+
+## When a major storm is coming, stay informed by following NOAA Weather radio or your local news channels for updates. In addition, make sure to obey all orders if requested to evacuate by the authorities. Follow these hurricane and storm preparations to keep your home and loved ones safe before disaster strikes.
+
+## If you have to evacuate: 
+## Make a plan ahead!!!
+## 1. If evacuation is necessary, turn off all utilities and follow community disaster preparedness plans. Select a common meeting place or single point-of-contact for all family members. If you have pets, have a plan for their evacuation as well.If you are staying in a storm surge zone or flood zone, leave as soon as a hurricane watch is issued. Low-lying escape routes may already be impassable hours before landfall, so don’t count on making a last-minute getaway. 
+
+## 2. A simple tenet of hurricane survival is “Run from water, hide from wind.” If storm surge is predicted, stay away from coastal and low-lying areas. If you are not ordered to evacuate, and winds are going to be more of a problem, the safest place to ride out the storm is in the most interior room of the place where you’re staying. 
+
+
+If you don't have to evacuate:
+
+1. Secure the exterior
+Trim large trees and shrubs and bring all outside patio furniture, potted plants, bikes and toys indoors. If necessary, secure outdoor sculptures with burlap or blankets tied with rope.
+ 
+
+2. Install storm shutters
+Protect windows, doors and skylights with appropriate shutters or impact-resistant glass. You can nail pieces of plywood to window frames as last-minute protection.
+ 
+
+3. Check wall hangings and art
+Make sure wall hangings are secure and take notes about your art collection and any existing damage. Make sure that art hung on outside walls are taken inside, and elevated off the floor. Click here for more tips on how to help protect your art and other valuables from severe storms, winds, and floods.
+ 
+
+4. Move your cars
+Move cars to higher ground or park them in your garage against the garage doors. Do not park under trees, power lines or in low-lying areas.
+
+5. Power up
+Fill your car’s gas tank, charge your cell phone, test your generator and have plenty of fuel ready in case of power outages.
+
+ 
+6. Unplug appliances
+Move appliances and household fixtures away from exterior doors and window openings. Store them in cabinets or interior closets.
+
+ 
+
+7. Store important documents
+Keep important documents, such as legal papers, birth certificates, marriage license, financial papers and insurance policy information, as well as valuables such as jewelry, in a safety deposit box or in a bolted safe in an interior closet in your home.
+
+ 
+
+8. Prep an emergency kit
+Gather flashlights, a portable radio, extra batteries, non-perishable food, bottled water, cash, blankets, clothing and toiletries.
+
+ 
+
+9. Identify a shelter room
+This enclosed area should be on the first floor, in the central part of the house with no windows. Avoid all unprotected windows and doors until the storm passes.
 
 \
 \
@@ -190,3 +254,5 @@ Tips for residents:
 2. Wikipedia: https://en.wikipedia.org/wiki/Hurricane_Ike#United_States
 
 3. Sea level pressure: https://weather.com/storms/hurricane/news/2020-01-29-hurricane-surface-pressure-damage-potential-wind
+
+4. Tips to prepare for a hurricane: https://www.chubb.com/us-en/individuals-families/resources/10-steps-to-prepare-for-a-hurricane.html
