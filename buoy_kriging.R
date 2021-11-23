@@ -68,6 +68,6 @@ predict_wspd <- krig_buoy %>% as.data.frame %>%
 
 
 tmap_mode("view")
-buoy_kriging_map <- tm_shape(krig_bouy) +
+buoy_kriging_map <- tm_shape(krig_buoy) +
   tm_bubbles(col = "var1.pred", palette = "-RdYlBu", size = .3, alpha = .5)
 

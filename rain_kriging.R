@@ -25,7 +25,7 @@ kriging_smooth_gaussian <- function (formula, data, ...) {
   v <- variogram(formula, data)
   v_fit <- fit.variogram(v, vgm("Gau", ...))
   v_f <- gaussian_variogram(v_fit$psill[1], v_fit$psill[2], v_fit$range[2])
-
+  
   Sigma <- v_f(as.matrix(dist(coordinates(Ike_rain_vgm_df)))) # semivariogram  data=Ike_rain_vgm_df!!!!!!
   Sigma <- sum(v_fit$psill) - Sigma # prior variance
   tau2 <- v_fit$psill[1] # residual variance
@@ -35,7 +35,7 @@ kriging_smooth_gaussian <- function (formula, data, ...) {
   # generalized least squares:
   beta <- coef(lm.fit(backsolve(C, x, transpose = TRUE),
                       backsolve(C, y, transpose = TRUE))) # prior mean
-
+  
   Sigma_inv <- chol2inv(chol(Sigma))
   C <- chol(Sigma_inv + diag(nrow(Ike_rain_vgm_df)) / tau2)
   # posterior mean (smoother):
@@ -72,3 +72,4 @@ TheGStat<-gstat(id="precip_max",formula=precip_max~1,data=Ike_rain_vgm_df)
 Thevgm=variogram(TheGStat,map=TRUE,cutoff=1500,width=300)
 plot(Thevgm,threshold=10,main="Variogram Map",xlab="x",ylab="y")
 
+plot(vgm_rain,vgm_rain_fit) #plot(v,v_f)

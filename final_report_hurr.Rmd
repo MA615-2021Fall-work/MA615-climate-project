@@ -8,12 +8,12 @@ output:
     latex_engine: xelatex
 ---
 
-```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE, message=F}
 knitr::opts_chunk$set(echo = FALSE)
-pacman::p_load("tidyverse","ggplot2","dplyr", "maps", "drat","hurricaneexposuredata","hurricaneexposure","weathermetrics","scales","sp","gstat","ggplot2","ggforce","tmap")
+pacman::p_load("tidyverse","ggplot2","dplyr", "maps", "drat","hurricaneexposuredata","hurricaneexposure","weathermetrics","scales","sp","gstat","ggplot2","ggforce","tmap", 'base')
 ```
 
-```{r,warning=FALSE}
+```{r,echo=FALSE, warning=FALSE, message=F}
 source("map_counties_j.R")
 source("data clean.R")
 source("visualization function.R")
@@ -28,7 +28,7 @@ source("rain_kriging.R")
 ## Movement Track
 Hurricane Ike was a powerful tropical hurricane that swept through portions of the Greater Antilles and Northern America in September 2008. The origins of Hurricane Ike can be traced back to a well-defined tropical wave first identified by the National Hurricane Center (NHC) near the western coast of Africa on August 28. After a period of development, Ike made its first landfall on Inagua in the Bahamas at 13:00 UTC on September 7 with winds of 125 mph (201 km/h). After one day, Ike made its second landfall on Cuba with a Category 4 intensity. Then, at 0700 UTC on September 13, Ike made its third landfall on Galveston Island in Texas (N29.4, W-95.01), with a Category 2 intensity and a maximum wind speed of 110 mph (180 km/h). Then Ike moved northward after its landfall on Texas and weakened to a tropical storm status.
 
-```{r, fig.width=10}
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 mapps_Ike$trackmap
 mapps_Ike$expos
 ```
@@ -46,14 +46,14 @@ Our project will only focus on the conditions of Ike when it made its landfall i
 \
 \
 
-```{r,fig.width=10}
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 mapps_Ike$buoymap
 ```
 
 ## EDA of Buoys data
 Firstly we use the buoys data to get the gust wind speed vs time and wind speed vs time. Notice that the timeline is from 6:00 on 2008-09-11 to 18:00 on 2008-09-15 which contains the time Ike made its landfall(September 13th). Each line represents the wind speed variation at one specific buoy, and there are 8 buoys, thus 8 lines in total. As we can see, the 8 lines share the same overall shape in both graphs, where the wind speeds reaches their maximum around 6:00 on 2008/9/13 which is very close to the landfall time of Ike(7:00 UTC). Meanwhile, we can see that the wind speeds decrease under 10m/s after 6:00 on 2008/9/14, which was also close to the time Ike left the landfall neighborhood. If we compare the information of Ike in the Hurricane Exposure with these graphs, we can see that they share almost the same timeline, which is what we want.
 
-```{r,fig.width=10}
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 wind_speed_tsp(get_result())
 gust_wind_speed_tsp(get_result())
 ```
@@ -67,7 +67,7 @@ Sea level pressure – the same metric that we all use to guess if the weather i
 Generally, the lower the central pressure, the stronger the storm. The lowest pressure in a hurricane is always found at its center, or in its eye.
 
 We can see from the plot that the sea level pressure recorded by buoy reaches to its lowest level around September 13th at 7:00AM, when Ike landfall. Hurricane Ike was a Category 2 on the Saffir–Simpson hurricane wind scale (SSHWS) but had a pressure of around 950 hPa when it arrived on the Texas coast. This was the third-lowest pressure for a landfalling Category 2 since 1900. Ike caused about $38 billion in damage, according to the National Hurricane Center. In 2009, Ike ranked as the second-costliest hurricane to make landfall in the United States. Since then, more damaging storms have made landfall, but Ike remains as the sixth-most-damaging hurricane. As we can conclude that sea level pressure may be another useful indicator of Hurricane Damage Potential besides wind speed and rainfall. 
-```{r, echo=F, fig.width=10}
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 press_tsp(get_result())
 ```
 \
@@ -80,8 +80,8 @@ press_tsp(get_result())
 ## EDA of Hurricane_Package data
 The following four graphs illustrate the data of Ike in the Hurricane package.
 \
-### This graph shows the wind speed variation of Ike along its tract. As we can see that the maximum speed Ike reached in the U.S. is around 45m/s at the landfall area, which is consistent with the peak value of our wind speed graph above. 
-```{r, fig.width=10}
+This graph shows the wind speed variation of Ike along its tract. As we can see that the maximum speed Ike reached in the U.S. is around 45m/s at the landfall area, which is consistent with the peak value of our wind speed graph above. 
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 #wind speed(m/s)
 mapps_Ike$wmap
 #wind duration(minutes)
@@ -90,16 +90,16 @@ mapps_Ike$wdmp
 \
 
 
-### The second graph we have is the map of tornados event that were caused by Ike. Although tornado is another another topic, we can get some useful information from its distribution. Notice that most of the exposed area also encountered higher amount of rainfall, but we could not find a clear relationship between the wind speed of Ike and the tornado events.
-```{r, fig.width=10}
+The second graph we have is the map of tornados event that were caused by Ike. Although tornado is another another topic, we can get some useful information from its distribution. Notice that most of the exposed area also encountered higher amount of rainfall, but we could not find a clear relationship between the wind speed of Ike and the tornado events.
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 # tornado situation
 mapps_Ike$tornado
 ```
 \
 
 
-### The third figure here is flood event exposed when Ike transits with Ike's track and the fourth figure is the rainfall map when Ike transit in 2008. In addition to high winds, hurricanes threaten coastal areas with their heavy rains. All tropical cyclones can produce widespread torrential rains, which cause massive flooding and trigger landslides and debris flows. Flash flooding, a rapid rise in water levels, can occur quickly due to intense rainfall over a relatively short period of time. As we can see from these two figures, the area has major rainfall and the area where flood events occur are overlap.
-```{r,fig.width=10}
+The third figure here is flood event exposed when Ike transits with Ike's track and the fourth figure is the rainfall map when Ike transit in 2008. In addition to high winds, hurricanes threaten coastal areas with their heavy rains. All tropical cyclones can produce widespread torrential rains, which cause massive flooding and trigger landslides and debris flows. Flash flooding, a rapid rise in water levels, can occur quickly due to intense rainfall over a relatively short period of time. As we can see from these two figures, the area has major rainfall and the area where flood events occur are overlap.
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 #flood event
 mapps_Ike$flood
 #rainfall
@@ -110,138 +110,184 @@ mapps_Ike$rmap
 
 
 ## Variogram
-|
-|
-|
-|
+Plots show the semivariogram values as a function of sample point separation h. In the case of empirical semivariogram, separation distance bins   are used rahter than exact distances, and usually isotropic comditios are assumed. Then, the empirical semivariogram  can be calculated for each bin:
+$$
+\hat{\gamma}(h \pm \delta):=\frac{1}{2|N(h \pm \delta)|} \sum_{(i, j) \in N(h \pm \delta)}\left|z_{i}-z_{j}\right|^{2}
+$$
 
-## Using data from hurricane exposure data package: 
-```{r,fig.width=10}
+  We choose Gaussian variogram model:
+$$
+\gamma(h)=(s-n)\left(1-\exp \left(-\frac{h^{2}}{r^{2} a}\right)\right)+n 1_{(0, \infty)}(h)
+$$
+
+
+#### Using data from hurricane exposure data package: 
+
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 # Same direction VGM
 plot(v, v_fit_same)
 # Vary direction VGM
 plot(lzn.dir, lzndir.fit, as.table = TRUE)
 ```
-
-
-## Wind speed along track prediction using kriging:
-```{r, fig.width=10,warning=FALSE}
+For upper plot, the y axis is the semi-variance of wind speed of Ike near the landfall point, and the x axis is the distance between two spacial points pair. The second graph has the same axis but illustrates the spatial points into four directions. 
+\
+#### Wind speed along track prediction using kriging:
+\
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 hurri_predicted
 hurri_map
 ```
 
+The first one is a heatmep while the second graph has each point being a county with the united states map as the background. Both graphs use the krigging to smooth the original data from the hurricane package, and they both show the overall track of Ike.
 
-## Rainfall along track:
-```{r,warning=FALSE,fig.width=10}
+
+
+#### Rainfall along track:
+The picture shows the experimental variogram and fitted model for rainfall. The variogram of rainfall showed a clear spatial dependence with bounded sill and were fitted well with Gaussian models. 
+
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 # check variogram and covariance
 op <- par(mfrow = c(1, 2))
 h <- seq(0, 50, length = 100)
 plot(vgm_rain,vgm_rain_fit) #plot(v,v_f)
-plot(vv,vv_fit,main="Directional Variogram") #,as.table=TRUE) 
 ```
 
 
+We detect anisotropy by visualization by the variogram map and directional variograms. Anisotropy is the property of a material which allows it to change or assume different properties in different directions as opposed to isotropy. 
 
+```{r, warning = FALSE,fig.width=10, fig.height=6}
+plot(vv,vv_fit,main="Directional Variogram") #,as.table=TRUE) 
+plot(Thevgm,threshold=10,main="Variogram Map",xlab="x",ylab="y")
+```
 
-## Using Buoy's data from NOAA:
-```{r}
+\
+\
+The dynamic map shows the rainfall distribution of hurricane exposure data package. It is obvious that there is more rainfall in coastal areas, so rainfall in coastal areas is more affected by hurricanes IKE.
+
+```{r, warning=F, message=F, echo=F,fig.width=10, fig.height=6}
+library(tmap) # thematic map plotting
+tmap_mode("view")
+tm_shape(Ike_rain_vgm_df) +
+  tm_bubbles(col = "response", palette = "-RdYlBu", size = .3, alpha = .5)
+```
+
+#### Using Buoy's data from NOAA:
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 par(mfrow = c(1,2))
 #buoy vgm
 plot(semivariog, v_fit_buoy, xlim = c(0,0.45),ylim = c(-10,100))
 predict_wspd
 ```
 
+For this plot, the y axis is the semi-variance of wind speed of Ike near the landfall point, and the x axis is the distance between two spacial points pair, but this graph uses the buoys data.
 
-```{r,fig.width=10}
+The second graph is also a heatmap, from the kriging smooth based on the buoys data, where the black points represent our buoys locations. The darker the color is, the greater the wind speed is. Since our buoys are located around the landfall points, this graph can show the wind speed around the landfall location.
+
+```{r, warning = FALSE,fig.width=10, fig.height=6}
 #predict landfall point wind speed using buoy's data
 buoy_kriging_map
 ```
 
+We use an alternative way to show the same information in the heat map above in the last graph.
+
 
 ## Conclusion
-A.  Although buoys collects sea-based data the hurricane package collects land-based data, after compare their wind speed, rainfall graphs, we find that they basically share the same overall shapes, and their key information at the landfall point, ex: maximum wind speed, wind duration, and rainfall amount, are very close. Thus, we can conclude that the buoys we selected are able to describe Ike's overall condition when it made its landfall. 
+\
+A. Although buoys collects sea-based data the hurricane package collects land-based data, after compare their wind speed, rainfall graphs, we find that they basically share the same overall shapes, and their key information at the landfall point, ex: maximum wind speed, wind duration, and rainfall amount, are very close. Thus, we can conclude that the buoys we selected are able to describe Ike's overall condition when it made its landfall. 
 
 B. After plotting the hurricane_exposure package data, we find that the flood and rainfall value basically share the same distribution along the Ike's movement tract, which points out that they are highly correlated. However, as for the distribution and value of wind speed and tornado, we cannot find an noticeable relation between them, which suggests that they are not highly correlated.
 
-3. 
+C. When doing the kriging, more prior information can provide more accurate prediction. As we mentioned in the first conclusion, the kriging graph based on buoys and graphs based on the hurricane package are overall the same at the landfall point, but their differences get larger when it gets further away from the landfall point. Thus, we can conclude that prediction is more accurate near our base points(our buoys), and less accurate for points further away our base points. In our first variogram graph above, we can see that as the distance increases, the semi-variance increases as well, which can be interpreted as two points with longer distance have larger difference.
 
+D.In the second graph, we further group the points pairs by their distance direction with 45 degrees per level. We can see that even though their shapes are not the same, they are all monotonically increasing, which suggests that they all follow our conclusion above.
 
-4. 
+We also made the variogram graph based on buoys data, since we only have 8 buoys, the graph shape is not that ideal to be monotonically increasing. However, this suggests that if we want to analyze based on the buoys variogram, we need more data, and this is consistent with our conclusion C which suggests that more data can provide better accuracy. ch is consistent with the kriging theorem. So, adding more buoys into our analysis is helpful for improve our accuracy. 
 \
 \
 \
-
-## Tips:
-## Based on the data, conclusion, and previous record, we have the following advice for people who may encounter a hurricane using Ike-2008 as an example:
-
-Evacuation counties suggestion(where wind speed > 30 m/s, wind duration > 420 minutes and total rainfall > 175mm):
+## Evacuation counties suggestion:
+(where wind speed > 30 m/s, wind duration > 420 minutes and total rainfall > 175mm):
+\
 County name: fips code
+\
 Mandatory evacuation zone suggestion:
+\
 Galveston: 48167
+\
 Chambers: 48071
+\
 Brazoria: 48039
+\
 Matagorda: 48321
-
+\
+\
 Evacuate warning zones suggestion:
+\
 Jefferson: 48245
+\
 Orange: 48361
+\
 Newton: 48351
+\
 Hardin: 48199
+\
 Liberty: 48291
+\
 Harris: 48201
+\
 Fort Bend: 48157
+\
 Wharton: 48481
+\
 Walker: 48473
+\
 Austin: 48015
+\
 San Jacinto: 48407
+\
 Tyler: 48457
+\
+\
+## Tips:
+\
+Based on the data, conclusion, and previous record, we have the following advice for people who may encounter a hurricane using Ike-2008 as an example:
 
+When a major storm is coming, stay informed by following NOAA Weather radio or your local news channels for updates. In addition, make sure to obey all orders if requested to evacuate by the authorities. Follow these hurricane and storm preparations to keep your home and loved ones safe before disaster strikes.
 
-## When a major storm is coming, stay informed by following NOAA Weather radio or your local news channels for updates. In addition, make sure to obey all orders if requested to evacuate by the authorities. Follow these hurricane and storm preparations to keep your home and loved ones safe before disaster strikes.
-
-## If you have to evacuate: 
-## Make a plan ahead!!!
-## 1. If evacuation is necessary, turn off all utilities and follow community disaster preparedness plans. Select a common meeting place or single point-of-contact for all family members. If you have pets, have a plan for their evacuation as well.If you are staying in a storm surge zone or flood zone, leave as soon as a hurricane watch is issued. Low-lying escape routes may already be impassable hours before landfall, so don’t count on making a last-minute getaway. 
-
-## 2. A simple tenet of hurricane survival is “Run from water, hide from wind.” If storm surge is predicted, stay away from coastal and low-lying areas. If you are not ordered to evacuate, and winds are going to be more of a problem, the safest place to ride out the storm is in the most interior room of the place where you’re staying. 
-
-
+If you have to evacuate: 
+\
+1. Make a plan ahead!!!
+\
+2. If evacuation is necessary, turn off all utilities and follow community disaster preparedness plans. Select a common meeting place or single point-of-contact for all family members. If you have pets, have a plan for their evacuation as well.If you are staying in a storm surge zone or flood zone, leave as soon as a hurricane watch is issued. Low-lying escape routes may already be impassable hours before landfall, so don’t count on making a last-minute getaway. 
+\
+3. A simple tenet of hurricane survival is “Run from water, hide from wind.” If storm surge is predicted, stay away from coastal and low-lying areas. If you are not ordered to evacuate, and winds are going to be more of a problem, the safest place to ride out the storm is in the most interior room of the place where you’re staying. 
+\
 If you don't have to evacuate:
-
+\
 1. Secure the exterior
 Trim large trees and shrubs and bring all outside patio furniture, potted plants, bikes and toys indoors. If necessary, secure outdoor sculptures with burlap or blankets tied with rope.
- 
-
+\
 2. Install storm shutters
 Protect windows, doors and skylights with appropriate shutters or impact-resistant glass. You can nail pieces of plywood to window frames as last-minute protection.
- 
-
+\
 3. Check wall hangings and art
 Make sure wall hangings are secure and take notes about your art collection and any existing damage. Make sure that art hung on outside walls are taken inside, and elevated off the floor. Click here for more tips on how to help protect your art and other valuables from severe storms, winds, and floods.
- 
-
+ \
 4. Move your cars
 Move cars to higher ground or park them in your garage against the garage doors. Do not park under trees, power lines or in low-lying areas.
-
+\
 5. Power up
 Fill your car’s gas tank, charge your cell phone, test your generator and have plenty of fuel ready in case of power outages.
-
- 
+\
 6. Unplug appliances
 Move appliances and household fixtures away from exterior doors and window openings. Store them in cabinets or interior closets.
-
- 
-
+\
 7. Store important documents
 Keep important documents, such as legal papers, birth certificates, marriage license, financial papers and insurance policy information, as well as valuables such as jewelry, in a safety deposit box or in a bolted safe in an interior closet in your home.
-
- 
-
+\
 8. Prep an emergency kit
 Gather flashlights, a portable radio, extra batteries, non-perishable food, bottled water, cash, blankets, clothing and toiletries.
-
- 
-
+\
 9. Identify a shelter room
 This enclosed area should be on the first floor, in the central part of the house with no windows. Avoid all unprotected windows and doors until the storm passes.
 
