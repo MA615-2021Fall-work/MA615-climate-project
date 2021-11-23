@@ -1,5 +1,12 @@
 # MA615-climate-project
 
+# Team member:
+
+- Biyao Zhang
+- Chen Xu
+- Xihao Cao
+- Yuanming Leng
+
 # This repo include:
 
 - data clean.R
