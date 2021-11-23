@@ -28,7 +28,7 @@ source("rain_kriging.R")
 ## Movement Track
 Hurricane Ike was a powerful tropical hurricane that swept through portions of the Greater Antilles and Northern America in September 2008. The origins of Hurricane Ike can be traced back to a well-defined tropical wave first identified by the National Hurricane Center (NHC) near the western coast of Africa on August 28. After a period of development, Ike made its first landfall on Inagua in the Bahamas at 13:00 UTC on September 7 with winds of 125 mph (201 km/h). After one day, Ike made its second landfall on Cuba with a Category 4 intensity. Then, at 0700 UTC on September 13, Ike made its third landfall on Galveston Island in Texas (N29.4, W-95.01), with a Category 2 intensity and a maximum wind speed of 110 mph (180 km/h). Then Ike moved northward after its landfall on Texas and weakened to a tropical storm status.
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r, fig.width=10}
 mapps_Ike$trackmap
 mapps_Ike$expos
 ```
@@ -46,14 +46,14 @@ Our project will only focus on the conditions of Ike when it made its landfall i
 \
 \
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,fig.width=10}
 mapps_Ike$buoymap
 ```
 
 ## EDA of Buoys data
 Firstly we use the buoys data to get the gust wind speed vs time and wind speed vs time. Notice that the timeline is from 6:00 on 2008-09-11 to 18:00 on 2008-09-15 which contains the time Ike made its landfall(September 13th). Each line represents the wind speed variation at one specific buoy, and there are 8 buoys, thus 8 lines in total. As we can see, the 8 lines share the same overall shape in both graphs, where the wind speeds reaches their maximum around 6:00 on 2008/9/13 which is very close to the landfall time of Ike(7:00 UTC). Meanwhile, we can see that the wind speeds decrease under 10m/s after 6:00 on 2008/9/14, which was also close to the time Ike left the landfall neighborhood. If we compare the information of Ike in the Hurricane Exposure with these graphs, we can see that they share almost the same timeline, which is what we want.
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,fig.width=10}
 wind_speed_tsp(get_result())
 gust_wind_speed_tsp(get_result())
 ```
@@ -67,7 +67,7 @@ Sea level pressure – the same metric that we all use to guess if the weather i
 Generally, the lower the central pressure, the stronger the storm. The lowest pressure in a hurricane is always found at its center, or in its eye.
 
 We can see from the plot that the sea level pressure recorded by buoy reaches to its lowest level around September 13th at 7:00AM, when Ike landfall. Hurricane Ike was a Category 2 on the Saffir–Simpson hurricane wind scale (SSHWS) but had a pressure of around 950 hPa when it arrived on the Texas coast. This was the third-lowest pressure for a landfalling Category 2 since 1900. Ike caused about $38 billion in damage, according to the National Hurricane Center. In 2009, Ike ranked as the second-costliest hurricane to make landfall in the United States. Since then, more damaging storms have made landfall, but Ike remains as the sixth-most-damaging hurricane. As we can conclude that sea level pressure may be another useful indicator of Hurricane Damage Potential besides wind speed and rainfall. 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r, echo=F, fig.width=10}
 press_tsp(get_result())
 ```
 \
@@ -81,7 +81,7 @@ press_tsp(get_result())
 The following four graphs illustrate the data of Ike in the Hurricane package.
 \
 This graph shows the wind speed variation of Ike along its tract. As we can see that the maximum speed Ike reached in the U.S. is around 45m/s at the landfall area, which is consistent with the peak value of our wind speed graph above. 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r, fig.width=10}
 #wind speed(m/s)
 mapps_Ike$wmap
 #wind duration(minutes)
@@ -91,7 +91,7 @@ mapps_Ike$wdmp
 
 
 The second graph we have is the map of tornados event that were caused by Ike. Although tornado is another another topic, we can get some useful information from its distribution. Notice that most of the exposed area also encountered higher amount of rainfall, but we could not find a clear relationship between the wind speed of Ike and the tornado events.
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r, fig.width=10}
 # tornado situation
 mapps_Ike$tornado
 ```
@@ -99,7 +99,7 @@ mapps_Ike$tornado
 
 
 The third figure here is flood event exposed when Ike transits with Ike's track and the fourth figure is the rainfall map when Ike transit in 2008. In addition to high winds, hurricanes threaten coastal areas with their heavy rains. All tropical cyclones can produce widespread torrential rains, which cause massive flooding and trigger landslides and debris flows. Flash flooding, a rapid rise in water levels, can occur quickly due to intense rainfall over a relatively short period of time. As we can see from these two figures, the area has major rainfall and the area where flood events occur are overlap.
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,fig.width=10}
 #flood event
 mapps_Ike$flood
 #rainfall
@@ -123,7 +123,7 @@ $$
 
 #### Using data from hurricane exposure data package: 
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,fig.width=10}
 # Same direction VGM
 plot(v, v_fit_same)
 # Vary direction VGM
@@ -133,7 +133,7 @@ For upper plot, the y axis is the semi-variance of wind speed of Ike near the la
 \
 #### Wind speed along track prediction using kriging:
 \
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r, fig.width=10,warning=FALSE}
 hurri_predicted
 hurri_map
 ```
@@ -145,7 +145,7 @@ The first one is a heatmep while the second graph has each point being a county 
 #### Rainfall along track:
 The picture shows the experimental variogram and fitted model for rainfall. The variogram of rainfall showed a clear spatial dependence with bounded sill and were fitted well with Gaussian models. 
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,warning=FALSE,fig.width=10}
 # check variogram and covariance
 op <- par(mfrow = c(1, 2))
 h <- seq(0, 50, length = 100)
@@ -155,7 +155,7 @@ plot(vgm_rain,vgm_rain_fit) #plot(v,v_f)
 
 We detect anisotropy by visualization by the variogram map and directional variograms. Anisotropy is the property of a material which allows it to change or assume different properties in different directions as opposed to isotropy. 
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r}
 plot(vv,vv_fit,main="Directional Variogram") #,as.table=TRUE) 
 plot(Thevgm,threshold=10,main="Variogram Map",xlab="x",ylab="y")
 ```
@@ -164,7 +164,7 @@ plot(Thevgm,threshold=10,main="Variogram Map",xlab="x",ylab="y")
 \
 The dynamic map shows the rainfall distribution of hurricane exposure data package. It is obvious that there is more rainfall in coastal areas, so rainfall in coastal areas is more affected by hurricanes IKE.
 
-```{r, warning=F, message=F, echo=F,fig.width=10, fig.height=6}
+```{r, warning=F, message=F, echo=F}
 library(tmap) # thematic map plotting
 tmap_mode("view")
 tm_shape(Ike_rain_vgm_df) +
@@ -172,7 +172,7 @@ tm_shape(Ike_rain_vgm_df) +
 ```
 
 #### Using Buoy's data from NOAA:
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r}
 par(mfrow = c(1,2))
 #buoy vgm
 plot(semivariog, v_fit_buoy, xlim = c(0,0.45),ylim = c(-10,100))
@@ -183,7 +183,7 @@ For this plot, the y axis is the semi-variance of wind speed of Ike near the lan
 
 The second graph is also a heatmap, from the kriging smooth based on the buoys data, where the black points represent our buoys locations. The darker the color is, the greater the wind speed is. Since our buoys are located around the landfall points, this graph can show the wind speed around the landfall location.
 
-```{r, warning = FALSE,fig.width=10, fig.height=6}
+```{r,fig.width=10}
 #predict landfall point wind speed using buoy's data
 buoy_kriging_map
 ```
@@ -249,13 +249,11 @@ Tyler: 48457
 \
 \
 ## Tips:
-\
 Based on the data, conclusion, and previous record, we have the following advice for people who may encounter a hurricane using Ike-2008 as an example:
 
 When a major storm is coming, stay informed by following NOAA Weather radio or your local news channels for updates. In addition, make sure to obey all orders if requested to evacuate by the authorities. Follow these hurricane and storm preparations to keep your home and loved ones safe before disaster strikes.
 
 If you have to evacuate: 
-\
 1. Make a plan ahead!!!
 \
 2. If evacuation is necessary, turn off all utilities and follow community disaster preparedness plans. Select a common meeting place or single point-of-contact for all family members. If you have pets, have a plan for their evacuation as well.If you are staying in a storm surge zone or flood zone, leave as soon as a hurricane watch is issued. Low-lying escape routes may already be impassable hours before landfall, so don’t count on making a last-minute getaway. 
